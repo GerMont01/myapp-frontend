@@ -1,0 +1,36 @@
+
+.header {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    background-color: white;
+    // box-shadow: 0 1px 5px 4px rgba(0, 0, 0, 0.473);
+    color: black;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.link {
+    padding: 10px;
+    width: 70px;
+    margin: 0 10px 0 10px;
+    height: fit-content;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Kaisei Opti', serif;
+    color: black;
+    &:hover {
+        border-bottom: 2px solid black;
+    }
+}
+.logo {
+    padding: 10px;
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Rouge Script', cursive;
+    font-size: 40px;
+    color: black;
+}
