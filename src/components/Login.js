@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -51,22 +51,27 @@ export default function Login(){
 
     const classes = useStyles();
 
+    const [login, setLogin] = useState({})
 
-    const loginHandler = (e) => {
-        e.preventDefault()
-        
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+    useEffect(()=>{
+        let myHeaders = new Headers();
+        myHeaders.append('Authorization','Basic ' + btoa(`${login.username}:${login.password}`))
+        myHeaders.append('Content-Type', 'application/json')
         fetch('http://localhost:3001/login',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify({username,password})
+            method: 'GET',
+            headers: myHeaders
         })
         .then(res=>res.json())
         .then(res=>console.log(res))
+    },[login])
+
+    const loginHandler = (e) => {
+        e.preventDefault()
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        setLogin({username:username,password:password})
     }
 
     return(
