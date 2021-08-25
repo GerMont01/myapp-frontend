@@ -41,14 +41,34 @@ export default function Signup(){
 
     const classes = useStyles();
 
+    const signupHandler = (e) => {
+        e.preventDefault()
+        
+        const email = document.getElementById('emailS').value;
+        const username = document.getElementById('usernameS').value;
+        const password = document.getElementById('passwordS').value;
+        const password2 = document.getElementById('password2S').value;
+
+        fetch('http://localhost:3001/signup',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({email,username,password,password2})
+        })
+        .then(res=>res.json())
+        .then(res=>console.log(res))
+    }
+
     return(
         <div className={classes.div}>
             <form className={classes.form}>
-                <input className={classes.input} type='text' placeholder='Enter your Email' required/>
-                <input className={classes.input} type='text' placeholder='Enter your User Name' required/>
-                <input className={classes.input} type='password' placeholder='Enter your Password' required/>
-                <input className={classes.input} type='password' placeholder='Verify Password' required/>
-                <button className={classes.button}>Submit</button>
+                <input className={classes.input} id='emailS' type='text' placeholder='Enter your Email' required/>
+                <input className={classes.input} id='usernameS'  type='text' placeholder='Enter your User Name' required/>
+                <input className={classes.input} id='passwordS'  type='password' placeholder='Enter your Password' required/>
+                <input className={classes.input} id='password2S'  type='password' placeholder='Verify Password' required/>
+                <button className={classes.button} onClick={(e)=>signupHandler(e)}>Submit</button>
             </form>
         </div>
     )

@@ -55,15 +55,15 @@ export default function Login(){
     const loginHandler = (e) => {
         e.preventDefault()
         
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+        const email = document.getElementById('emailL').value;
+        const password = document.getElementById('passwordL').value;
         fetch('http://localhost:3001/login',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             credentials: 'include',
-            body: JSON.stringify({username,password})
+            body: JSON.stringify({email,password})
         })
         .then(res=>res.json())
         .then(res=>console.log(res))
@@ -72,8 +72,8 @@ export default function Login(){
     return(
         <div className={classes.div}>
             <form className={classes.form}>
-                <input className={classes.input} id='username' type='text' placeholder='User Name' required/>
-                <input className={classes.input} id='password' type='password' placeholder='Password' required/>
+                <input className={classes.input} id='emailL' type='text' placeholder='Enter your Email' required/>
+                <input className={classes.input} id='passwordL' type='password' placeholder='Password' required/>
                 <button className={classes.button} onClick={(e)=>loginHandler(e)}>Submit</button>
                 <Link className={classes.link} to='/forgotpassword' >Forgot your password?</Link>
             </form>
