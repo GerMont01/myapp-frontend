@@ -47,11 +47,6 @@ export default function Signup(){
 
     const signupHandler = (e) => {
         e.preventDefault()
-        
-        const email = document.getElementById('emailS').value;
-        const username = document.getElementById('usernameS').value;
-        const password = document.getElementById('passwordS').value;
-        const password2 = document.getElementById('password2S').value;
 
         fetch('http://localhost:3001/signup',{
             method: 'POST',
@@ -59,12 +54,17 @@ export default function Signup(){
                 'Content-Type': 'application/json'
             },
             credentials: 'include',
-            body: JSON.stringify({email,username,password,password2})
+            body: JSON.stringify({
+                email: document.getElementById('emailS').value,
+                username: document.getElementById('usernameS').value,
+                password: document.getElementById('passwordS').value,
+                password2: document.getElementById('password2S').value
+            })
         })
         .then(res=>res.json())
         .then(res=>{
             console.log(res)
-            if (res == true){
+            if (res === true){
                 data.dispatch({type:'SESSION', payload:true})
                 history.push('/')
             }

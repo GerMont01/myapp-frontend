@@ -36,7 +36,7 @@ export default function Provider(props) {
         })
             .then(res=>res.json())
             .then(data=>{
-                if (data == true){
+                if (data === true){
                     dispatch({type:'SESSION',payload:true})
                 }
             })

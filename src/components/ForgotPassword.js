@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     div: {
@@ -41,13 +42,36 @@ const useStyles = makeStyles({
 export default function ForgotPassword(){
 
     const classes = useStyles();
+    const history = useHistory();
+
+    const forgotpHandler = (e) => {
+        e.preventDefault()
+        fetch('http://localhost:3001/forgotpassword',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    email: document.getElementById('email').value, 
+                    code:document.getElementById('code').value
+                })
+            })
+            .then(res=>res.json())
+            .then(res=>{
+                console.log(res)
+                if (res === true){
+                    history.push('changepassword')
+                }
+            })
+    }
 
     return(
         <div className={classes.div}>
             <form className={classes.form}>
-                <input className={classes.input} type='text' placeholder='Enter your Email' required/>
-                <input className={classes.input} type='text' onKeyUp={e => e.target.value = e.target.value.toUpperCase()} placeholder='Enter verification Code' required/>
-                <button className={classes.button}>Submit</button>
+                <input className={classes.input} id='email' type='text' placeholder='Enter your Email' required/>
+                <input className={classes.input} id='code' type='text' onKeyUp={e => e.target.value = e.target.value.toUpperCase()} placeholder='Enter verification Code' required/>
+                <button className={classes.button} onClick={(e)=>forgotpHandler(e)}>Submit</button>
             </form>
         </div>
     )

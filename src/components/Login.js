@@ -58,21 +58,22 @@ export default function Login(){
 
     const loginHandler = (e) => {
         e.preventDefault()
-        
-        const email = document.getElementById('emailL').value;
-        const password = document.getElementById('passwordL').value;
+      
         fetch('http://localhost:3001/login',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             credentials: 'include',
-            body: JSON.stringify({email,password})
+            body: JSON.stringify({
+                email:document.getElementById('emailL').value, 
+                password:document.getElementById('passwordL').value
+            })
         })
         .then(res=>res.json())
         .then(res=>{
             console.log(res)
-            if (res == true){
+            if (res === true){
                 data.dispatch({type:'SESSION', payload:true})
                 history.push('/')
             }
