@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
+import { useContext } from "react";
+import { myContext } from "../context";
 
 const useStyles = makeStyles({
     div: {
@@ -38,7 +40,7 @@ const useStyles = makeStyles({
 });
 
 export default function Signup(){
-
+    const data = useContext(myContext)
     const classes = useStyles();
 
     const signupHandler = (e) => {
@@ -58,7 +60,10 @@ export default function Signup(){
             body: JSON.stringify({email,username,password,password2})
         })
         .then(res=>res.json())
-        .then(res=>console.log(res))
+        .then(res=>{
+            console.log(res)
+            data.dispatch({type:'SESSION', payload:true})
+        })
     }
 
     return(
