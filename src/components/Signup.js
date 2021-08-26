@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import { useContext } from "react";
 import { myContext } from "../context";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     div: {
@@ -41,6 +42,7 @@ const useStyles = makeStyles({
 
 export default function Signup(){
     const data = useContext(myContext)
+    const history = useHistory();
     const classes = useStyles();
 
     const signupHandler = (e) => {
@@ -62,7 +64,10 @@ export default function Signup(){
         .then(res=>res.json())
         .then(res=>{
             console.log(res)
-            data.dispatch({type:'SESSION', payload:true})
+            if (res == true){
+                data.dispatch({type:'SESSION', payload:true})
+                history.push('/')
+            }
         })
     }
 

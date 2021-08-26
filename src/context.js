@@ -27,6 +27,21 @@ const initialState = {
 export default function Provider(props) {
     const [state, dispatch] = useReducer(reducer, initialState);
 
+    useEffect(()=>{
+        fetch('http://localhost:3001/api',{
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        })
+            .then(res=>res.json())
+            .then(data=>{
+                if (data == true){
+                    dispatch({type:'SESSION',payload:true})
+                }
+            })
+    },[])
+
     return(
         <myContext.Provider value={{state, dispatch}}>
             {props.children}

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
+import { myContext } from "../context";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     div: {
@@ -49,8 +51,10 @@ const useStyles = makeStyles({
 
 export default function Login(){
 
+    const data = useContext(myContext);
     const classes = useStyles();
 
+    const history = useHistory();
 
     const loginHandler = (e) => {
         e.preventDefault()
@@ -66,7 +70,13 @@ export default function Login(){
             body: JSON.stringify({email,password})
         })
         .then(res=>res.json())
-        .then(res=>console.log(res))
+        .then(res=>{
+            console.log(res)
+            if (res == true){
+                data.dispatch({type:'SESSION', payload:true})
+                history.push('/')
+            }
+        })
     }
 
     return(

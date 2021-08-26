@@ -8,7 +8,8 @@ export default function Header(){
     const data = useContext(myContext)
 
     useEffect(()=>{
-        setLoggedin(data.loggedin)
+        setLoggedin(data.state.loggedin)
+        console.log(loggedin)
     },[data])
 
     const logout = () => {
@@ -29,13 +30,13 @@ export default function Header(){
             <Link to='/' className='logo'>My Restaurant</Link>
             {loggedin ? (
             <>
-                <Link to='/signup' className='link'>Signup</Link>
-                <Link to='/login' className='link'>Login</Link>
+                <Link to='/profile' className='link'>Profile</Link>
+                <a onClick={()=>logout()} className='link'>Logout</a>
             </>
             ):(
             <>
-                <Link to='/profile' className='link'>Profile</Link>
-                <p onClick={()=>logout()} className='link'>Logout</p>
+                <Link to='/signup' className='link'>Signup</Link>
+                <Link to='/login' className='link'>Login</Link>
             </> 
             )}
             

@@ -26,7 +26,6 @@ export default function Home(){
     const [value, onChange] = useState('10:00');
     
     useEffect(()=>{
-        console.log('before fetch')
         fetch('http://localhost:3001/api',{
             headers: {
                 'Content-Type': 'application/json'
@@ -34,7 +33,7 @@ export default function Home(){
             credentials: 'include'
         })
             .then(res=>res.json())
-            .then(data=>{console.log('during fetch');console.log(data)})
+            .then(data=>console.log(data))
     },[])
 
     const classes = useStyles();
