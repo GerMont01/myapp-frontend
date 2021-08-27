@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Signup from "./Signup";
 import Grid from '@material-ui/core/Grid';
-import TimePicker from 'react-time-picker';
 
 
 const useStyles = makeStyles({
@@ -23,7 +22,6 @@ const useStyles = makeStyles({
 
 
 export default function Home(){
-    const [value, onChange] = useState('10:00');
     
     useEffect(()=>{
         fetch('http://localhost:3001/api',{
@@ -37,7 +35,7 @@ export default function Home(){
     },[])
 
     const classes = useStyles();
-    console.log(value)
+
     return(
         <Grid container spacing={1} className={classes.root}>
             {/* <Grid item xs={12} className={classes.div}>

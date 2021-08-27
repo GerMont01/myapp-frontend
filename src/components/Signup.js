@@ -11,7 +11,14 @@ const useStyles = makeStyles({
         margin: 'auto',
         display:'flex',
         flexDirection:'column',
-        alignItems:'center' 
+        alignItems:'center' ,
+        justifyContent:'center'
+    },
+    div2: {
+        width: '100%',
+        // padding: '0 10px',
+        display:'flex',
+        justifyContent: 'space-between'
     },
     form: {
         display: 'flex',
@@ -23,7 +30,18 @@ const useStyles = makeStyles({
         backgroundColor: 'rgb(248, 248, 248)',
         border: 'none',
         borderRadius: '5px',
-        width: '100%',
+        width: '96%',
+        padding: '5px',
+        margin: '5px auto',
+        textAlign: 'center',
+        fontFamily: "'Kaisei Opti', serif",
+        boxShadow: "0 0px 5px 1px rgba(0, 0, 0, 0.1) inset"
+    },
+    input2: {
+        backgroundColor: 'rgb(248, 248, 248)',
+        border: 'none',
+        borderRadius: '5px',
+        width: '45%',
         padding: '5px',
         margin: '5px',
         textAlign: 'center',
@@ -34,9 +52,9 @@ const useStyles = makeStyles({
         border: 'none',
         outline: 'none',
         borderRadius: '5px',
-        width: '102%',
+        width: '98%',
         padding: '6px',
-        margin: '5px',
+        margin: '5px auto',
         fontFamily: "'Kaisei Opti', serif",
         boxShadow: "0 0px 5px 1px rgba(0, 0, 0, 0.1) inset"
     }
@@ -58,7 +76,8 @@ export default function Signup(){
             credentials: 'include',
             body: JSON.stringify({
                 email: document.getElementById('emailS').value,
-                username: document.getElementById('usernameS').value,
+                firstname: document.getElementById('firstname').value,
+                lastname: document.getElementById('lastname').value,
                 password: document.getElementById('passwordS').value,
                 password2: document.getElementById('password2S').value
             })
@@ -77,10 +96,13 @@ export default function Signup(){
         <div className={classes.div}>
             <form className={classes.form}>
                 <input className={classes.input} id='emailS' type='text' placeholder='Enter your Email' required/>
-                <input className={classes.input} id='usernameS'  type='text' placeholder='Enter your User Name' required/>
+                <div className={classes.div2}>
+                    <input className={classes.input2} id='firstname'  type='text' placeholder='Enter your First Name' required/>
+                    <input className={classes.input2} id='lastname'  type='text' placeholder='Enter your Last Name' required/>
+                </div>
                 <input className={classes.input} id='passwordS'  type='password' placeholder='Enter your Password' required/>
                 <input className={classes.input} id='password2S'  type='password' placeholder='Verify Password' required/>
-                <button className={classes.button} onClick={(e)=>signupHandler(e)}>Submit</button>
+                <button className={classes.button} onClick={(e)=>signupHandler(e)}>Register</button>
             </form>
         </div>
     )

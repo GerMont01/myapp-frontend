@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
 import { myContext } from "../context";
-import { useHistory } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
+import TimePicker from 'react-time-picker';
 
 const useStyles = makeStyles({
     div: {
@@ -39,56 +39,46 @@ const useStyles = makeStyles({
         margin: '5px',
         fontFamily: "'Kaisei Opti', serif",
         boxShadow: "0 0px 5px 1px rgba(0, 0, 0, 0.1) inset"
-    },
-    link: {
-        width: '103%',
-        textDecoration: 'none',
-        color: 'black',
-        textAlign: 'center',
-        fontSize: '14px'
     }
-});
+})
 
+export default function Reserve(){
 
-
-export default function Login(){
-
-    const data = useContext(myContext);
     const classes = useStyles();
 
-    const history = useHistory();
+    const [value, onChange] = useState('10:00');
 
-    const loginHandler = (e) => {
-        e.preventDefault()
-      
-        fetch('http://localhost:3001/login',{
+    const reserveHandler = (e) => {
+        e.preventDefault();
+        fetch('http://localhost:3001/reserve',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             credentials: 'include',
             body: JSON.stringify({
-                email:document.getElementById('emailL').value, 
-                password:document.getElementById('passwordL').value
+                numOfPeople:document.getElementById('numOfPeople').value, 
+                Time:value
             })
         })
         .then(res=>res.json())
         .then(res=>{
             console.log(res)
             if (res === true){
-                data.dispatch({type:'SESSION', payload:true})
-                history.push('/')
+                
             }
         })
     }
-
     return(
         <div className={classes.div}>
             <form className={classes.form}>
-                <input className={classes.input} id='emailL' type='text' placeholder='Enter your Email' required/>
-                <input className={classes.input} id='passwordL' type='password' placeholder='Password' required/>
-                <button className={classes.button} onClick={(e)=>loginHandler(e)}>Login</button>
-                <Link className={classes.link} to='/forgotpassword' >Forgot your password?</Link>
+                <input className={classes.input} type='text' id='numOfPeople' placeholder='Enter the number of people' required/>
+                <TimePicker 
+                        className={classes.input}
+                        onChange={onChange}
+                        value={value}
+                    />
+                <button className={classes.button} onClick={(e)=>reserveHandler(e)}>Reserve</button>
             </form>
         </div>
     )

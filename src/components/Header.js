@@ -26,7 +26,7 @@ export default function Header(){
     return(
         <div className='header'>
             <Link to='/menu' className='link'>Menu</Link>
-            <Link to='/book' className='link'>Book</Link>
+            <Link to='/reserve' className='link'>Reserve</Link>
             <Link to='/' className='logo'>My Restaurant</Link>
             {loggedin ? (
             <>

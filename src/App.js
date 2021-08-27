@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './components/Header';
 import Home from './components/Home';
-import Book from './components/Book';
+import Reserve from './components/Reserve';
 import Menu from './components/Menu';
 import Profile from './components/Profile';
 import Signup from './components/Signup';
@@ -35,7 +35,7 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route path='/login' component={Login}/>
           <Route path='/signup' component={Signup}/>
-          <Route path='/book' component={Book}/>
+          <Route path='/reserve' component={Reserve}/>
           <Route path='/Menu' component={Menu}/>
           <Route path='/profile' component={Profile}/>
           <Route path='/forgotpassword' component={ForgotPassword}/>

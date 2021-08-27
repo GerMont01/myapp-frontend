@@ -73,7 +73,7 @@ export default function ForgotPassword(){
             <form className={classes.form}>
                 <input className={classes.input} id='email' type='text' placeholder='Enter your Email' required/>
                 <input className={classes.input} id='code' type='text' onKeyUp={e => e.target.value = e.target.value.toUpperCase()} placeholder='Enter verification Code' required/>
-                <button className={classes.button} onClick={(e)=>forgotpHandler(e)}>Submit</button>
+                <button className={classes.button} onClick={(e)=>forgotpHandler(e)}>Verify</button>
             </form>
         </div>
     )

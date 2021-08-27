@@ -75,7 +75,7 @@ export default function ChangePassword(){
             <form className={classes.form}>
                 <input className={classes.input} id='newpassword' type='password' placeholder='Enter new Password' required/>
                 <input className={classes.input} id='newpassword2' type='password' placeholder='Verify new Password' required/>
-                <button className={classes.button} onClick={(e)=>changePasswordHandler(e)}>Submit</button>
+                <button className={classes.button} onClick={(e)=>changePasswordHandler(e)}>Change Password</button>
             </form>
         </div>
     )
