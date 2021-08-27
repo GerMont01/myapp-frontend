@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import { useContext } from "react";
@@ -41,7 +41,7 @@ const useStyles = makeStyles({
         backgroundColor: 'rgb(248, 248, 248)',
         border: 'none',
         borderRadius: '5px',
-        width: '45%',
+        width: '50%',
         padding: '5px',
         margin: '5px',
         textAlign: 'center',
@@ -61,12 +61,13 @@ const useStyles = makeStyles({
 });
 
 export default function Signup(){
+    const [ message, setMessage ] = useState();
+
     const data = useContext(myContext)
     const history = useHistory();
     const classes = useStyles();
 
-    const signupHandler = (e) => {
-        e.preventDefault()
+    const signupHandler = () => {
 
         fetch('http://localhost:3001/signup',{
             method: 'POST',
@@ -88,13 +89,20 @@ export default function Signup(){
             if (res === true){
                 data.dispatch({type:'SESSION', payload:true})
                 history.push('/')
+            } else {
+                setMessage(res)
             }
-        })
+        }) 
     }
 
     return(
         <div className={classes.div}>
-            <form className={classes.form}>
+            {message ? (
+                <p className={classes.p}>{message}</p>
+            ):(
+                <></>
+            )}
+            <form onSubmit={(e)=>{e.preventDefault();signupHandler()}} className={classes.form}>
                 <input className={classes.input} id='emailS' type='text' placeholder='Enter your Email' required/>
                 <div className={classes.div2}>
                     <input className={classes.input2} id='firstname'  type='text' placeholder='Enter your First Name' required/>
@@ -102,7 +110,7 @@ export default function Signup(){
                 </div>
                 <input className={classes.input} id='passwordS'  type='password' placeholder='Enter your Password' required/>
                 <input className={classes.input} id='password2S'  type='password' placeholder='Verify Password' required/>
-                <button className={classes.button} onClick={(e)=>signupHandler(e)}>Register</button>
+                <button className={classes.button} type='submit'>Register</button>
             </form>
         </div>
     )

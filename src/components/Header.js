@@ -13,6 +13,7 @@ export default function Header(){
     },[data])
 
     const logout = () => {
+        data.dispatch({type:'RESERVATION', payload:false})
         fetch('http://localhost:3001/logout',{
             method: 'GET',
             credentials: 'include',

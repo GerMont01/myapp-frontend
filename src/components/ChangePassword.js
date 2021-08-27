@@ -46,8 +46,8 @@ export default function ChangePassword(){
     const classes = useStyles();
     const history = useHistory();
 
-    const changePasswordHandler = (e) => {
-        e.preventDefault()
+    const changePasswordHandler = () => {
+
         fetch('http://localhost:3001/changepassword',{
                 method: 'POST',
                 headers: {
@@ -71,11 +71,11 @@ export default function ChangePassword(){
     }
 
     return(
-        <div className={classes.div}>
-            <form className={classes.form}>
+        <div  className={classes.div}>
+            <form onSubmit={(e)=>{e.preventDefault();changePasswordHandler()}} className={classes.form}>
                 <input className={classes.input} id='newpassword' type='password' placeholder='Enter new Password' required/>
                 <input className={classes.input} id='newpassword2' type='password' placeholder='Verify new Password' required/>
-                <button className={classes.button} onClick={(e)=>changePasswordHandler(e)}>Change Password</button>
+                <button className={classes.button} type='submit'>Change Password</button>
             </form>
         </div>
     )

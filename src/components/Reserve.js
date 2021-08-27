@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { myContext } from "../context";
 import { makeStyles } from '@material-ui/core/styles';
 import TimePicker from 'react-time-picker';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     div: {
@@ -44,41 +45,52 @@ const useStyles = makeStyles({
 
 export default function Reserve(){
 
+    const data = useContext(myContext)
+    const history = useHistory();
     const classes = useStyles();
 
     const [value, onChange] = useState('10:00');
+    const [ message, setMessage ] = useState();
 
-    const reserveHandler = (e) => {
-        e.preventDefault();
+    const reserveHandler = () => {
+        const reservation = {
+            numOfPeople:document.getElementById('numOfPeople').value, 
+            time:value
+        }
         fetch('http://localhost:3001/reserve',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             credentials: 'include',
-            body: JSON.stringify({
-                numOfPeople:document.getElementById('numOfPeople').value, 
-                Time:value
-            })
+            body: JSON.stringify(reservation)
         })
         .then(res=>res.json())
         .then(res=>{
             console.log(res)
-            if (res === true){
-                
+            if (res){
+                data.dispatch({type:'RESERVATION', payload:res})
+                history.push('/')
+            } else {
+                setMessage('Tables unavailable at that time, please try again')
             }
         })
     }
     return(
         <div className={classes.div}>
-            <form className={classes.form}>
+            {message ? (
+                <p className={classes.p}>{message}</p>
+            ):(
+                <></>
+            )}
+            <form onSubmit={(e)=>{e.preventDefault();reserveHandler()}} className={classes.form}>
                 <input className={classes.input} type='text' id='numOfPeople' placeholder='Enter the number of people' required/>
                 <TimePicker 
                         className={classes.input}
                         onChange={onChange}
                         value={value}
                     />
-                <button className={classes.button} onClick={(e)=>reserveHandler(e)}>Reserve</button>
+                <button className={classes.button} type='submit'>Reserve</button>
             </form>
         </div>
     )

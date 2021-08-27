@@ -14,6 +14,11 @@ function reducer(state, action) {
                 ...state,
                 userLevel: action.payload
             };
+        case 'RESERVATION':
+            return {
+                ...state,
+                reservation: action.payload
+            };
         default:
             return {
                 ...state

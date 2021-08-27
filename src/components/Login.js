@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import { myContext } from "../context";
@@ -46,20 +46,24 @@ const useStyles = makeStyles({
         color: 'black',
         textAlign: 'center',
         fontSize: '14px'
+    },
+    p: {
+        color: 'red',
+        fontSize: '14px'
     }
 });
 
 
 
 export default function Login(){
+    const [ message, setMessage ] = useState();
 
     const data = useContext(myContext);
     const classes = useStyles();
 
     const history = useHistory();
 
-    const loginHandler = (e) => {
-        e.preventDefault()
+    const loginHandler = () => {
       
         fetch('http://localhost:3001/login',{
             method: 'POST',
@@ -78,16 +82,23 @@ export default function Login(){
             if (res === true){
                 data.dispatch({type:'SESSION', payload:true})
                 history.push('/')
+            } else {
+                setMessage(res)
             }
         })
     }
 
     return(
         <div className={classes.div}>
-            <form className={classes.form}>
+            {message ? (
+                <p className={classes.p}>{message}</p>
+            ):(
+                <></>
+            )}
+            <form onSubmit={(e)=>{e.preventDefault();loginHandler()}} className={classes.form}>
                 <input className={classes.input} id='emailL' type='text' placeholder='Enter your Email' required/>
                 <input className={classes.input} id='passwordL' type='password' placeholder='Password' required/>
-                <button className={classes.button} onClick={(e)=>loginHandler(e)}>Login</button>
+                <button className={classes.button} type='submit' >Login</button>
                 <Link className={classes.link} to='/forgotpassword' >Forgot your password?</Link>
             </form>
         </div>

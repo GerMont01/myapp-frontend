@@ -46,8 +46,8 @@ export default function ForgotPassword(){
     const classes = useStyles();
     const history = useHistory();
 
-    const forgotpHandler = (e) => {
-        e.preventDefault()
+    const forgotpHandler = () => {
+
         fetch('http://localhost:3001/forgotpassword',{
                 method: 'POST',
                 headers: {
@@ -70,10 +70,10 @@ export default function ForgotPassword(){
 
     return(
         <div className={classes.div}>
-            <form className={classes.form}>
+            <form onSubmit={(e)=>{e.preventDefault();forgotpHandler()}} className={classes.form}>
                 <input className={classes.input} id='email' type='text' placeholder='Enter your Email' required/>
                 <input className={classes.input} id='code' type='text' onKeyUp={e => e.target.value = e.target.value.toUpperCase()} placeholder='Enter verification Code' required/>
-                <button className={classes.button} onClick={(e)=>forgotpHandler(e)}>Verify</button>
+                <button className={classes.button} type='submit'>Verify</button>
             </form>
         </div>
     )
