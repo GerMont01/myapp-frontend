@@ -26,7 +26,8 @@ const useStyles = makeStyles({
         padding: '5px',
         margin: '5px',
         textAlign: 'center',
-        fontFamily: "'Kaisei Opti', serif"
+        fontFamily: "'Kaisei Opti', serif",
+        boxShadow: "0 0px 5px 1px rgba(0, 0, 0, 0.1) inset"
     },
     button: {
         border: 'none',
@@ -35,7 +36,8 @@ const useStyles = makeStyles({
         width: '102%',
         padding: '6px',
         margin: '5px',
-        fontFamily: "'Kaisei Opti', serif"
+        fontFamily: "'Kaisei Opti', serif",
+        boxShadow: "0 0px 5px 1px rgba(0, 0, 0, 0.1) inset"
     }
 });
 

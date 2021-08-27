@@ -15,9 +15,11 @@ import ChangePassword from './components/ChangePassword';
 
 const useStyles = makeStyles({
   root: {
+    position: 'absolute',
     width: '100%',
     height: '100%',
-    padding: 0
+    padding: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.929)'
   },
 });
 
